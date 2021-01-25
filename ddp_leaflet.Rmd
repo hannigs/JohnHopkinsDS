@@ -1,0 +1,72 @@
+---
+title: 'Outdoors in Éire'
+
+date: "January 24th, 2021"
+
+author: "hannigs"
+output: ioslides_presentation
+css: slidestyles.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r myHobbies, echo=F, include=F}
+library(tidyverse)
+library(leaflet)
+eire <- lapply(list(
+  list('Surf', 'Tullan Strand',54.49875610700868, -8.26523491126921 ),
+  list('Surf', 'Rossnowlagh Beach',54.550387300113854, -8.210905357263464),
+  list('Surf', 'Inch Beach', 52.14116526550534, -9.98143918154086),
+  list('Surf', 'Stradbally Beach',52.28407263459274, -10.03328743889665),
+  list('Surf', 'Banna Strand',52.338907781732914, -9.83474174879883),
+  list('Surf', 'Garretstown Beach',51.64535132617828, -8.580869409332292),
+  list('Hike','Glendalough',53.01334761319223, -6.330054604722114),
+  list('Hike','Carrauntoohil',51.999588297591345, -9.743093382170851),
+  list('Hike','Sliabh Liag',54.64056620732441, -8.681855503780007),
+  list('Hike', 'Croagh Patrick',53.76051976314189, -9.660048819141133),
+  list('Hike', 'Giant\'s Causeway',55.2328821399572, -6.529166726136148),
+  list('Hike', 'Bray To Greystones',53.188682642615944, -6.077330746027566),
+  list('Bike', 'Great Western Greenway', 53.822722366129106, -9.530371704431431),
+  list('Bike', 'Old Rail Trail Greenway', 53.4041359463441, -7.768132101774416),
+  list('Bike', 'Sally Gap',53.13749126295127, -6.30995711213983),
+  list('Bike', 'Gap of Dunloe',52.017246924465184, -9.633204582159888),
+  list('Bike', 'Portumna Forest Park',53.091756270400204, -8.245123596839226),
+  list('Bike', 'Howth Head',53.37960597352494, -6.057499103830092)), 
+  function(x){setNames(x,c('Hobby','Location','lat','lng')) %>% as.data.frame()}) %>%
+  do.call(rbind,.)
+
+myIcons <- iconList(Surf = makeIcon(#iconUrl = 'https://www.flaticon.com/premium-icon/icons/svg/3046/3046996.svg',
+                                    iconUrl = 'https://www.flaticon.com/svg/vstatic/svg/829/829928.svg?token=exp=1611551647~hmac=0354527da7762a93eb33926405464b09',
+                                    iconWidth = 31*215/230,iconHeight = 31, 
+                                    iconAnchorX =  31*215/230/2,
+                                    iconAnchorY = 16),
+                    Hike = makeIcon(#iconUrl = 'https://www.flaticon.com/svg/vstatic/svg/1274/1274794.svg?token=exp=1611549330~hmac=01332e8d647bbfd2188fbaf411b89ffc',
+                                    iconUrl = 'https://www.flaticon.com/svg/vstatic/svg/21/21766.svg?token=exp=1611551500~hmac=1f4a0f7f00c1fb2d310c70bbab16ad81',
+                                    iconWidth = 31*215/230,iconHeight = 31, 
+                                    iconAnchorX =  31*215/230/2,
+                                    iconAnchorY = 16),
+                    Bike = makeIcon(iconUrl =  'https://www.flaticon.com/svg/vstatic/svg/2932/2932444.svg?token=exp=1611551711~hmac=e1d1b4636d7269394ce1d66639785d10',
+                                    iconWidth = 31*215/230,iconHeight = 31, 
+                                    iconAnchorX =  31*215/230/2,
+                                    iconAnchorY = 16))
+
+```
+
+***
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+
+my_map <- eire %>%
+  leaflet() %>%
+  addTiles() %>%
+  addMarkers(label = ~Location, 
+             icon = ~myIcons[Hobby],
+             clusterOptions = markerClusterOptions(freezeAtZoom = 8))
+my_map
+```
+
+<br />
+
+Where I like to go **surfing**, **hiking**, and **cycling** in Ireland!
