@@ -5,7 +5,6 @@ date: "January 24th, 2021"
 
 author: "hannigs"
 output: ioslides_presentation
-css: slidestyles.css
 ---
 
 ```{r setup, include=FALSE}
@@ -37,8 +36,8 @@ eire <- lapply(list(
   function(x){setNames(x,c('Hobby','Location','lat','lng')) %>% as.data.frame()}) %>%
   do.call(rbind,.)
 
-myIcons <- iconList(Surf = makeIcon(#iconUrl = 'https://www.flaticon.com/premium-icon/icons/svg/3046/3046996.svg',
-                                    iconUrl = 'https://www.flaticon.com/svg/vstatic/svg/829/829928.svg?token=exp=1611551647~hmac=0354527da7762a93eb33926405464b09',
+myIcons <- iconList(Surf = makeIcon(iconUrl = '829928.svg',#'https://www.flaticon.com/svg/vstatic/svg/829/829928.svg?token=exp=1611551647~hmac=0354527da7762a93eb33926405464b09',
+                                    
                                     iconWidth = 31*215/230,iconHeight = 31, 
                                     iconAnchorX =  31*215/230/2,
                                     iconAnchorY = 16),
